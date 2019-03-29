@@ -98,7 +98,13 @@ function createUploadersForDroppedFiles (event) {
   if (asdndz) {
     event.preventDefault()
     // get the input associated with this dndz
-    const input = document.getElementById(asdndz.dataset.dndInputId)
+    //convert dnd-input-id for Rails nested fields
+    var dnd_file_id = asdndz.dataset.dndInputId
+    dnd_file_id = dnd_file_id.replace("[","_")
+    dnd_file_id = dnd_file_id.replace("][","_")
+    dnd_file_id = dnd_file_id.replace("]_","_")
+  
+    const input = document.getElementById(dnd_file_id)
     Array.from(event.dataTransfer.files).forEach(file => createUploader(input, file))
   }
 }
